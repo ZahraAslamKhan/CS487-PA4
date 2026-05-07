@@ -101,7 +101,7 @@ This shows the output of running `func start` inside the `function-app/` directo
 
 ### Evidence 4.1: Function App Container Configuration
 
-![Function App Container Config](docs/FunctionApp_Container_Config.png)
+![StorageAccount-Overvie](docs/StorageAccount-Overview.png)
 
 The Function App `pa4-25280093` is configured to pull its container image from ACR at `pa425280093.azurecr.io/func-app:v1`. This screenshot shows the container settings or Deployment Center blade confirming the image URI and registry are correctly wired up.
 
@@ -129,13 +129,13 @@ The AKS cluster `pa4-25280093` is provisioned in resource group `rg-sp26-2528009
 
 ### Evidence 5.2: Kubernetes Nodes and Pods
 
-![kubectl get nodes and pods](docs/kubectl_nodes_pods.png)
+![kubectl get nodes and pods](docs/K8-Detail.png)
 
 `kubectl get nodes` shows the single node in **Ready** state, confirming the cluster is healthy. `kubectl get pods` shows the validator pod in **Running** state, meaning the `validate-api:v1` image was pulled from ACR using the pull secret and the container started without issues.
 
 ### Evidence 5.3: Kubernetes Service
 
-![kubectl get service](docs/kubectl_service.png)
+![kubectl get service](docs/K8-Overview.png)
 
 `kubectl get service validate-service` shows the service type as **LoadBalancer** with an assigned **EXTERNAL-IP** and port 8080 exposed. This is the stable public IP that `validate_activity` in the Durable Function uses to reach the validator on every order.
 
@@ -175,7 +175,7 @@ The `reports` blob container exists inside storage account `pa425280093`. This i
 
 ### Evidence 6.3: ACI Logs
 
-![ACI Container Logs](docs/ACI_Logs.png)
+![CR](docs/CR.png)
 
 `az container logs` for `ci-report-test` shows the report job's own printed output — lines confirming PDF generation started, the file was created, and it was uploaded to blob storage. This proves the container code ran successfully end-to-end inside the ACI.
 
@@ -193,7 +193,7 @@ The Function App `pa4-25280093` Identity blade shows the user-assigned managed i
 
 ### Evidence 6.6: Report App Settings
 
-![Report App Settings](docs/Report_App_Settings.png)
+![AppServicePlan](docs/AppServicePlan.png)
 
 The Function App application settings show all values needed by `report_activity`: `REPORT_IMAGE` (the ACR image URI for the report job), `ACR_SERVER`, `ACR_USERNAME`, and `ACR_PASSWORD` (masked) for pulling the image, `STORAGE_ACCOUNT_URL` so the container knows where to write the PDF, `REPORT_RG` and `REPORT_LOCATION` for ACI provisioning, `SUBSCRIPTION_ID` for the SDK client, and `AZURE_CLIENT_ID` for the managed identity. All sensitive values are masked.
 
