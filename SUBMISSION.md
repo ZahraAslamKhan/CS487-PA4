@@ -31,7 +31,7 @@
 
 ### Evidence 1.1: Forked Repository
 
-(docs/Forked_Repository.png)
+![Forked Repository](docs/Forked Repository.png)
 
 This is my personal fork of the PA4 starter repo at `github.com/ZahraAslamKhan/CS487-PA4`, forked from `KarmaMS/CS487-PA4`. It contains all the required folders: `webapp`, `function-app`, `validate-api`, `report-job`, and `docs`.
 
