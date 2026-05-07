@@ -37,13 +37,13 @@ This is my personal fork of the PA4 starter repo at `github.com/ZahraAslamKhan/C
 
 ### Evidence 1.2: App Service Overview
 
-![App Service Overview](docs/App_Service_Overview.png)
+![App Service Overview](docs/AppServiceOverview.png)
 
 The Web App `pa4-25280093` is deployed in resource group `rg-sp26-25280093`, region UK West, on App Service Plan `pa4-25280093 (B1:1)` running Linux with Node 22-lts runtime. Status shows **Running** and the public URL is `pa4-25280093.azurewebsites.net`.
 
 ### Evidence 1.3: Deployment Center / GitHub Actions
 
-![Deployment Center GitHub Actions](docs/Deployment_Center_GitHub_Actions.png)
+![Deployment Center GitHub Actions](docs/DeploymentCenterGitHubActions.png)
 
 The Web App is connected to GitHub via the Deployment Center. Source is GitHub, organization `ZahraAslamKhan`, repository `CS487-PA4`, branch `main`, with GitHub Actions as the build provider using Node 22-lts runtime.
 
@@ -59,23 +59,23 @@ This shows the TaskFlow order form loaded in a browser at `pa4-25280093.azureweb
 
 ### Evidence 2.1: ACR Overview
 
-![ACR Overview](docs/ACR_Overview.png)
+![ACR Overview](docs/ACROverview.png)
 
 The container registry `pa425280093` is provisioned in resource group `rg-sp26-25280093`, region UK West, on the **Basic** pricing plan. Provisioning state shows **Succeeded** and the login server is `pa425280093.azurecr.io`.
 
 ### Evidence 2.2: Docker Builds
 
-![Docker Builds](docs/Docker_Builds.png)
+![Docker Builds](docs/DockerBuilds.png)
 
 Docker Desktop build history shows three successful builds: `validate-api` (2m 21s), `report-job` (7m 21s), and `function-app` (1m 59s). Each image was built from its own subfolder — `validate-api/`, `report-job/`, and `function-app/` respectively — and all three completed with no errors.
 
 ### Evidence 2.3: ACR Repositories
 
-![ACR Repositories](docs/ACR_Repositories.png)
+![ACR Repositories](docs/ACRRepositories.png)
 
 The ACR Repositories blade for `pa425280093` lists all three repositories: `func-app`, `report-job`, and `validate-api`. The CLI output below also confirms this via `az acr repository list`.
 
-![Successful Push CLI](docs/Successful_Push.png)
+![Successful Push CLI](docs/SuccessfulPush.png)
 
 Running `az acr repository list --name pa425280093 --output table` confirms all three images — `func-app`, `report-job`, and `validate-api` — were successfully pushed to the registry with tag `v1`.
 
@@ -251,11 +251,11 @@ An order was submitted with `qty: 999`, which exceeds the validator's limit of 1
 
 ### Evidence 8.1: Architecture Diagram
 
-![TaskFlow High Level Architecture](docs/TaskFlow_HighLevel_drawio.png)
+![TaskFlow High Level Architecture](docs/TaskFlow-HighLevel.png)
 
 High-level diagram showing the full pipeline flow: User browser → App Service Web App → Durable Function App (containing HTTP Starter, Orchestrator, validate_activity, report_activity) → AKS Validator and ACI Report Job → Blob Storage. ACR supplies images to all three container services, and IAM / Managed Identity governs access across the resource group.
 
-![TaskFlow Detailed Architecture](docs/TaskFlow_Detailed_drawio.png)
+![TaskFlow Detailed Architecture](docs/TF-Detailed.png)
 
 Detailed diagram with labelled arrows for every data flow: HTTPS from the browser, CI/CD deploy from GitHub, start+poll between the Web App and Function App, HTTP /validate call to AKS, SDK-based ACI creation by report_activity, PDF write from ACI to Blob Storage, and dashed image-pull arrows from ACR to the Function App, AKS, and ACI.
 
